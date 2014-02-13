@@ -4,8 +4,12 @@ object MyGit extends App {
   override def main(args: Array[String]) = {
     import FileHelper._
     import GitHelper._
-    val depth = args.headOption.getOrElse("1").toInt
-    listing(dir, depth)
+    val depth = try {
+      args.headOption.getOrElse("0").toInt
+    } catch {
+      case n: NumberFormatException => 0
+    }
+    listing(dir, depth + 1)
   }
 
 }
